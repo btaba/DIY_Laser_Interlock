@@ -1,4 +1,6 @@
 /* @file Laser_Interlock_test7
+ || # February 28, 2012
+ || # by Baruch Tabanpour
  || #
  || #  Inerlock System consists of Control Panel, Channel Box, and Control Box
  || #      
@@ -34,8 +36,6 @@
  || #  #      If Authorization switch is ON, users cannot Suspend using the keypad
  || #  #  Multiple presses of the Suspend switch will reset Suspend timer
  || #
- || # February 28, 2012
- || # by Baruch Tabanpour
  */ 
 
 #include <Keypad.h>
@@ -60,13 +60,13 @@ const byte ROWS = 4; //four rows on Keypad
 const byte COLS = 4; //four columns on Keypad
 
 // Pin Definitions
-const byte buzzerPin = A0;  //buzzer
-    // Active, Suspend, and Trip LEDs below have two sets of LEDs on each pin
-const byte Active_Pin = 10;  //Active LED
+const byte buzzerPin = A0;     //buzzer
+// Active, Suspend, and Trip LEDs below have two sets of LEDs on each pin
+const byte Active_Pin = 10;    //Active LED
 const byte Suspend_Pin = 11;   //Suspend LED
 const byte Trip_Pin = 12;      //Trip LED
-const byte Reset_Pin = 27;  //Reset LED on Channel Box
-    // Laser Pins below have two sets of LEDs on each pin
+const byte Reset_Pin = 27;     //Reset LED on Channel Box
+// Laser Pins below have two sets of LEDs on each pin
 const byte Laser1_Pin = 32;   
 const byte Laser2_Pin = 33;
 const byte Laser3_Pin = 34;
@@ -112,7 +112,7 @@ byte colPins[COLS] = {9, 8, 7, 6}; //connect to the column pinouts of the keypad
 LiquidCrystal lcd(44,45,46,47,48,49);
 
 // Switches Debounce Time and State Change Detection ---- Reset, Suspend, & Lasers
-int lastResetState = LOW;   // the previous reading
+int lastResetState = LOW;          // the previous reading
 int lastSuspendState = LOW;
 int lastEnableState = LOW;
 
@@ -136,17 +136,17 @@ int tripstate3 = HIGH;
 int TRIPstate = HIGH;  //TRIP is a logic function taken from 3 tripstates
 
 // Flags -- to prevent unnecessary looping in main loop()
-bool trip_flag = false;  //In order for Trip once
+bool trip_flag = false;     //In order for Trip once
 bool suspend_flag = false;  //In order to Suspend Once
-bool lcd_flag = 0;  //for LCD display TRIP function
-bool lcd_flag1 = 0;  //for LCD diplay Authorize function
-bool active_flag = 0; //for LCD display Authorize function
+bool lcd_flag = 0;          //for LCD display TRIP function
+bool lcd_flag1 = 0;         //for LCD diplay Authorize function
+bool active_flag = 0;       //for LCD display Authorize function
 
 // Suspend Timing
 unsigned long previousMillis = 0;   
 unsigned long suspend_time = 30000;  //30 seconds
-unsigned long interval = 1000;  //1 second between buzzer sounds
-unsigned long previousMillis2 = 0;  //for suspend buzzer blink speed
+unsigned long interval = 1000;       //1 second between buzzer sounds
+unsigned long previousMillis2 = 0;   //for suspend buzzer blink speed
 unsigned int i = 0;
 
 // Keypad Constructor
@@ -194,7 +194,7 @@ void setup(){
   pinMode(Switch_Enable_Pin, INPUT);
   
   keypad.addEventListener(keypadEvent); //add an event listener for this keypad
-  //keypad.setHoldTime(3000);    //Keypress hold set to 3.0 sec
+  //keypad.setHoldTime(3000);           //Keypress hold set to 3.0 sec
   
   // LCD
   lcd.begin(16, 2);  // set the LCD's number of columns and rows
