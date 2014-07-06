@@ -290,16 +290,16 @@ void loop(){
        
     // Get Authorization state
     authorizeState = digitalRead(Switch_Authorize);    // To Authorize keypad Suspends
-    if(active_flag == true)  {
-      if(authorizeState == true)  {
+    if (active_flag == true)  {
+      if (authorizeState == true)  {
         lcd_flag1 = 0;
       }
       else  {
         lcd_flag1 = 1; 
       }
       active_flag = false;
-    } 
-    if(authorizeState == true && lcd_flag1 == 0)  {
+    } // set flags to make the LCD work correctly...
+    if (authorizeState == true && lcd_flag1 == 0)  {
        // Display on LCD
        lcd.setCursor(0,0);
        lcd.print("Not Authorized  ");
@@ -314,20 +314,20 @@ void loop(){
     // Get Suspend button press, and switch Suspend State ON if conditions met
     if( suspend_reading != lastSuspendState && suspend_flag == false && Trip == false )  {
       Suspend = true;
-      suspend_flag = true;              // to prevent looping the this 'if statement' for entire Suspend state
+      suspend_flag = true;              // to prevent looping this 'if statement' for entire Suspend state
       digitalWrite(Suspend_Pin, HIGH);  // Suspend LED is ON
       Serial.println("Suspend ON");
       
       // Set Suspend timer
       previousMillis = millis();
       previousMillis2 = millis();
-      i = 0; //set timer to 0
+      i = 0; // set timer to 0
       interval = 1000;
       
       lcd.setCursor(0,1);
       lcd.print("Suspend: ON     ");
       
-      delay(10); //prevents debounce on Suspend On/Off Switch
+      delay(10); // prevents debounce on Suspend On/Off Switch
     }
     else if(suspend_reading != lastSuspendState && suspend_flag == true && Suspend == true)  {
       // Reset Suspend timer
@@ -430,7 +430,7 @@ void loop(){
         
         // Reset for next Trip
         trip_flag = true;  // prevents looping of this "if-statement"
-        Trip=false;
+        Trip = false;
       }
       else if( Suspend == true)  {  // Can only Suspend if Trip was false, see Suspend intialization above
         // Suspend for 30 seconds
@@ -458,7 +458,7 @@ void loop(){
             else  tone(buzzerPin, 523, 1000);    // 1 second tone when Suspend turns off
          }
   
-         if(currentMillis - previousMillis > suspend_time) {
+         if (currentMillis - previousMillis > suspend_time) {
              // 30 seconds passed 
              previousMillis = currentMillis;
              Suspend = false; //For next run through
@@ -472,16 +472,16 @@ void loop(){
       } // end Trip and Suspend functions
       
      // Reset and Laser Buttons to turn On/Off Laser Interlock Pins
-     if(Trip==false || Suspend == true)  {
+     if (Trip==false || Suspend == true)  {
        // Set Reset
-       if(reset_reading != lastResetState)  {
-         if( Reset == false )  {  
+       if (reset_reading != lastResetState)  {
+         if ( Reset == false )  {  
           Reset = true;
           digitalWrite(Reset_Pin, HIGH);
           Serial.println("Reset On");
           delay(10);  // to prevent debounce
          }
-        else if( Reset == true )  {
+        else if ( Reset == true )  {
           Reset = false;
           digitalWrite(Reset_Pin, LOW);
           Serial.println("Reset Off");
@@ -506,31 +506,31 @@ void loop(){
           lcd.print("                ");
         }
       }
-      if( Reset == true )  {
+      if ( Reset == true )  {
         // Short Interlock wires if Reset is ON and Laser button pressed
       
-          if( laser1_reading == HIGH && Laser1 == false)  {
+          if ( laser1_reading == HIGH && Laser1 == false)  {
             Laser1 = true;
             digitalWrite(Laser1_Pin, HIGH); //SHORT INTERLOCK PINS FOR LASER 1 OUTPUT
             lcd.setCursor(0,1);
             lcd.print("Laser ON         ");
           }
           
-          if( laser2_reading == HIGH && Laser2 == false)  {
+          if ( laser2_reading == HIGH && Laser2 == false)  {
             Laser2 = true;
             digitalWrite(Laser2_Pin, HIGH); //SHORT INTERLOCK PINS FOR LASER 2 OUTPUT
             lcd.setCursor(0,1);
             lcd.print("Laser ON         ");
           }
           
-          if( laser3_reading == HIGH && Laser3 == false)  {
+          if ( laser3_reading == HIGH && Laser3 == false)  {
             Laser3 = true;
             digitalWrite(Laser3_Pin, HIGH); //SHORT INTERLOCK PINS FOR LASER 3 OUTPUT
             lcd.setCursor(0,1);
             lcd.print("Laser ON         ");
           }
           
-          if( laser4_reading == HIGH && Laser4 == false)  {
+          if ( laser4_reading == HIGH && Laser4 == false)  {
             Laser4 = true;
             digitalWrite(Laser4_Pin, HIGH); //SHORT INTERLOCK PINS FOR LASER 4 OUTPUT
             digitalWrite(Relay_Laser4, HIGH);  //closed 
@@ -557,8 +557,8 @@ void loop(){
 /***********************************************************************************************/
 
 // Event Listener
-void keypadEvent(KeypadEvent key){
-  switch (keypad.getState()){
+void keypadEvent(KeypadEvent key) {
+  switch (keypad.getState()) {
     case PRESSED:
       switch(key){
         case '*': 
@@ -592,10 +592,10 @@ void keypadEvent(KeypadEvent key){
 
 // Password Functions
 void guessPassword(){
-  if( authorizeState == false)  {
+  if ( authorizeState == false)  {
     if (password.evaluate()){
       // password entered correctly. Can only turn On/Off Suspend if Trip is Cleared
-          if( Trip == false && Suspend == false)  {
+          if ( Trip == false && Suspend == false)  {
             // Turn on Suspend  
             Suspend = true;
             suspend_flag == true;
