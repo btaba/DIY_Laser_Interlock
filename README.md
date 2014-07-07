@@ -9,4 +9,11 @@ The original design called for external laser shutters, but I resorted to using 
 
 Dependencies on: Keypad.h, Password.h, and LiquidCrystal.h
 
+http://playground.arduino.cc/Code/Keypad
+
+http://www.arduino.cc/en/Reference/LiquidCrystal
+
+http://playground.arduino.cc/Code/Password
+
+
 
